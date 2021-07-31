@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contests</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&family=Pacifico&display=swap');
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        text-align: center;
+        font-family: 'PT Sans Narrow', serif;
+        font-size: 1.1rem;
+    }
+
+    body {
+        background: rgb(16, 6, 35);
+        background: linear-gradient(326deg, rgba(16, 6, 35, 1) 0%, rgba(23, 17, 34, 1) 100%);
+        color: #fff;
+    }
+
+    a {
+        color: unset;
+
+    }
+
+    .container {
+        width: 80vw;
+        padding: 50px 20px;
+        background-color: rgba(255, 255, 255, 0.05);
+        margin: 100px auto;
+        backdrop-filter: blur(15px);
+        border-bottom: 2px solid rgb(255, 255, 255, 0.05);
+        border-right: 2px solid rgb(255, 255, 255, 0.05);
+
+    }
+
+    @media screen and (max-width:720px) {
+        * {
+            font-size: 0.8rem;
+        }
+
+        .container {
+            width: 98vw;
+        }
+    }
+
+    table {
+        width: 100%;
+        padding: 15px;
+        border-collapse: collapse;
+    }
+
+    .header-row {
+        border-bottom: 1px solid rgb(206, 189, 189);
+    }
+
+    .header-row th {
+        padding-bottom: 10px;
+    }
+
+    img {
+        width: 18px;
+        display: inline;
+        transform: translateY(2px);
+        margin-right: 4px;
+    }
+
+    .circle1 {
+        height: 500px;
+        width: 500px;
+        border-radius: 50%;
+        background: rgb(63, 94, 251);
+        background: linear-gradient(326deg, rgba(63, 94, 251, 1) 0%, rgba(252, 70, 124, 1) 100%);
+        position: fixed;
+        top: -150px;
+        left: -50px;
+        z-index: -1;
+        transition: width 2s, height 1s;
+    }
+
+    .circle2 {
+        height: 500px;
+        width: 500px;
+        border-radius: 50%;
+        background: #C02425;
+        /* fallback for old browsers */
+        background: -webkit-linear-gradient(to left, #F0CB35, #C02425);
+        /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to left, #F0CB35, #C02425);
+        /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+        position: fixed;
+        top: 150px;
+        right: -50px;
+        z-index: -1;
+    }
+
+    footer {
+        font-family: 'Pacifico', cursive;
+        margin-bottom: 10px;
+    }
+</style>
+
+<body>
+    <div class="circle1"></div>
+    <div class="circle2"></div>
+
+    <div class="container">
+        <table>
+            <tr class="header-row">
+                <th> Platform </th>
+                <th> Contest Name</th>
+                <th> Starts </th>
+                <th> Ends </th>
+                <th> Link </th>
+            </tr>
+            <!-- <tr>
+                <td><img src="./leetcode.svg"> Leetcode </td>
+                <td> Codeforces Round 736</td>
+                <td><br>July 31, 2021 <br> 20:05 </td>
+                <td><br>July 31, 2021 <br> 22:05 </td>
+                <td> Click here </td>
+            </tr>
+            <tr>
+                <td><img src="./code-forces.svg"> Codeforces </td>
+                <td> Deltix Round, Summer 2021 (open for everyone, rated, Div. 1 + Div. 2)</td>
+                <td><br>July 31, 2021 <br> 20:05 </td>
+                <td><br>July 31, 2021 <br> 22:05 </td>
+                <td> Click here </td>
+            </tr>
+            <tr>
+                <td><img src="./codechef.svg"> Codeforces </td>
+                <td> Codeforces Round 736</td>
+                <td><br>July 31, 2021 <br> 20:05 </td>
+                <td><br>July 31, 2021 <br> 22:05 </td>
+                <td> Click here </td>
+            </tr> -->
+        </table>
+    </div>
+    <footer>
+        Developed with ❤️ by Ratan Sen
+    </footer>
+
+</body>
+<script>
+    const cf = "https://kontests.net/api/v1/codeforces";
+    const cc = "https://kontests.net/api/v1/code_chef";
+    const lc = "https://kontests.net/api/v1/leet_code";
+    window.onload = load;
+    function formatTime(input) {
+        return new Date(input).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' })
+    }
+    function load() {
+        fetch(cf).then((response) => response.json()).then(data => {
+            console.log(data);
+            data.forEach((item) =>
+                document.querySelector("table").innerHTML += `
+            <tr>
+                <td><img src="./code-forces.svg"> Codeforces </td>
+                <td> ${item.name}</td>
+                <td><br>${formatTime(item.start_time).split(",")[0]} <br>${formatTime(item.start_time).split(",")[1]}</td>
+                <td><br>${formatTime(item.end_time).split(",")[0]}  <br> ${formatTime(item.end_time).split(",")[1]} </td>
+                <td><a href=${item.url} target="_blank" rel="noopener noreferrer"> Click here</a> </td>
+            </tr>
+            `
+            )
+
+        })
+
+        fetch(cc).then((response) => response.json()).then(data => {
+            console.log(data);
+            data.forEach((item) =>
+                document.querySelector("table").innerHTML += `
+            <tr>
+                <td><img src="./codechef.svg"> Codechef </td>
+                <td> ${item.name}</td>
+                <td><br>${formatTime(item.start_time).split(",")[0]} <br>${formatTime(item.start_time).split(",")[1]}</td>
+                <td><br>${formatTime(item.end_time).split(",")[0]}  <br> ${formatTime(item.end_time).split(",")[1]} </td>
+                <td><a href=${item.url} target="_blank" rel="noopener noreferrer"> Click here</a> </td>
+            </tr>
+            `
+            )
+
+        })
+
+        fetch(lc).then((response) => response.json()).then(data => {
+            console.log(data);
+            data.forEach((item) =>
+                document.querySelector("table").innerHTML += `
+            <tr>
+                <td><img src="./leetcode.svg"> LeetCode </td>
+                <td> ${item.name}</td>
+                <td><br>${formatTime(item.start_time).split(",")[0]} <br>${formatTime(item.start_time).split(",")[1]}</td>
+                <td><br>${formatTime(item.end_time).split(",")[0]}  <br> ${formatTime(item.end_time).split(",")[1]} </td>
+                <td><a href=${item.url} target="_blank" rel="noopener noreferrer"> Click here</a> </td>
+            </tr>
+            `
+            )
+
+
+        })
+
+    }
+
+</script>
+
+</html>
