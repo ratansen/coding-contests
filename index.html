@@ -172,6 +172,7 @@
     const cf = "https://kontests.net/api/v1/codeforces";
     const cc = "https://kontests.net/api/v1/code_chef";
     const lc = "https://kontests.net/api/v1/leet_code";
+    const ac = "https://kontests.net/api/v1/at_coder" ;
     window.onload = load;
     function formatTime(input) {
         return new Date(input).toLocaleString(undefined, { timeZone: 'Asia/Kolkata' })
@@ -215,6 +216,23 @@
                 document.querySelector("table").innerHTML += `
             <tr>
                 <td><img src="./leetcode.svg"> LeetCode </td>
+                <td> ${item.name}</td>
+                <td><br>${formatTime(item.start_time).split(",")[0]} <br>${formatTime(item.start_time).split(",")[1]}</td>
+                <td><br>${formatTime(item.end_time).split(",")[0]}  <br> ${formatTime(item.end_time).split(",")[1]} </td>
+                <td><a href=${item.url} target="_blank" rel="noopener noreferrer"> Click here</a> </td>
+            </tr>
+            `
+            )
+
+
+        })
+
+        fetch(ac).then((response) => response.json()).then(data => {
+            console.log(data);
+            data.forEach((item) =>
+                document.querySelector("table").innerHTML += `
+            <tr>
+                <td><img src="./atcoder.png"> AtCoder </td>
                 <td> ${item.name}</td>
                 <td><br>${formatTime(item.start_time).split(",")[0]} <br>${formatTime(item.start_time).split(",")[1]}</td>
                 <td><br>${formatTime(item.end_time).split(",")[0]}  <br> ${formatTime(item.end_time).split(",")[1]} </td>
